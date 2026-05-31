@@ -1,6 +1,6 @@
 'use client'
 
-import { FaCat, FaHandHoldingHeart } from "react-icons/fa";
+import { FaCat, FaHandHoldingHeart, FaStar } from "react-icons/fa";
 import { FaEarthAmericas } from "react-icons/fa6";
 import { IoHome } from "react-icons/io5";
 
@@ -43,6 +43,14 @@ const stats = [
     topBar: "from-[#8B5E3C] to-[#7A4F30]",
     glow: "bg-[#D4B49A]",
   },
+  {
+    icon: <FaStar />,
+    value: "4.9★",
+    label: "Average Rating",
+    iconBg: "from-[#D4844A] to-[#C4773F]",
+    topBar: "from-[#D4844A] to-[#C4773F]",
+    glow: "bg-[#F5C4A0]",
+  },
 ];
 
 export default function Stats() {
@@ -83,15 +91,10 @@ export default function Stats() {
             }}
             pagination={{ clickable: true }}
             breakpoints={{
-              0: {
-                slidesPerView: 1,
-              },
-              640: {
-                slidesPerView: 2,
-              },
-              1024: {
-                slidesPerView: 4,
-              },
+              0:    { slidesPerView: 1 },
+              640:  { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+              1280: { slidesPerView: 4 },
             }}
             className="pb-14"
           >

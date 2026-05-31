@@ -1,8 +1,15 @@
+'use client'
 import React from 'react'
 import { FaHome } from 'react-icons/fa'
-import { FaBowlFood, FaHospital } from 'react-icons/fa6'
+import { FaBowlFood, FaHospital, FaShieldHeart } from 'react-icons/fa6'
 import { IoLogoOctocat } from 'react-icons/io'
 import { MdOutlinePets } from 'react-icons/md'
+
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Autoplay, Pagination } from 'swiper/modules'
+
+import 'swiper/css'
+import 'swiper/css/pagination'
 
 const cards = [
   {
@@ -37,6 +44,14 @@ const cards = [
     iconHover: 'group-hover:bg-[#8B5E3C]',
     topBar: 'from-[#8B5E3C] to-[#7A4F30]',
   },
+  {
+    icon: <FaShieldHeart />,
+    title: 'Love & Bonding',
+    desc: 'Spend quality time with your pet every day. Gentle grooming, cuddles, and training sessions strengthen trust and help your companion feel secure and loved.',
+    iconBg: 'bg-[#F5C4D0]/40 border-[#F5C4D0]',
+    iconHover: 'group-hover:bg-[#C4607A]',
+    topBar: 'from-[#C4607A] to-[#B8506A]',
+  },
 ]
 
 export default function PetCare() {
@@ -51,7 +66,7 @@ export default function PetCare() {
 
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <span className="inline-flex justify-center items-center rounded-full bg-[#F2C4A0] border border-[#C4844A]/30 px-5 py-2 text-sm font-semibold text-[#3D2B1F] mb-6 animate-bounce">
+          <span className="inline-flex justify-center items-center gap-2 rounded-full bg-[#F2C4A0] border border-[#C4844A]/30 px-5 py-2 text-sm font-semibold text-[#3D2B1F] mb-6 animate-bounce">
             <MdOutlinePets /> Care Guide
           </span>
           <h2 className="text-4xl font-black text-[#3D2B1F] mb-4 tracking-tight">
@@ -62,48 +77,61 @@ export default function PetCare() {
           </p>
           <div className="flex items-center justify-center gap-3 mt-8">
             <div className="h-px w-16 bg-[#C4844A]/30 rounded-full" />
-            <span className="text-[#C4844A] text-lg"> <MdOutlinePets /> </span>
+            <span className="text-[#C4844A] text-lg"><MdOutlinePets /></span>
             <div className="h-px w-16 bg-[#C4844A]/30 rounded-full" />
           </div>
         </div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Swiper */}
+        <Swiper
+          modules={[Autoplay, Pagination]}
+          spaceBetween={24}
+          loop={true}
+          autoplay={{ delay: 2500, disableOnInteraction: false }}
+          pagination={{ clickable: true }}
+          breakpoints={{
+            0:    { slidesPerView: 1 },
+            640:  { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+            1280: { slidesPerView: 4 },
+          }}
+          className="pb-14"
+        >
           {cards.map((card, index) => (
-            <div
-              key={index}
-              className="group relative overflow-hidden bg-[#FFFDF8] p-7 rounded-2xl border border-[#E2D8C5] shadow-[0_2px_16px_rgba(180,160,110,0.08)] transition-all duration-500 hover:-translate-y-3 hover:scale-[1.02] hover:shadow-[0_20px_40px_rgba(196,132,74,0.15)] hover:border-[#C4844A]/40 cursor-default"
-            >
-              {/* Gradient top bar */}
-              <div className={`absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r ${card.topBar} scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left`} />
+            <SwiperSlide key={index}>
+              <div className="group relative overflow-hidden bg-[#FFFDF8] p-7 rounded-2xl border border-[#E2D8C5] shadow-[0_2px_16px_rgba(180,160,110,0.08)] transition-all duration-500 hover:-translate-y-3 hover:scale-[1.02] hover:shadow-[0_20px_40px_rgba(196,132,74,0.15)] hover:border-[#C4844A]/40 cursor-default">
 
-              {/* Glow on hover */}
-              <div className="absolute -right-8 -top-8 h-28 w-28 rounded-full bg-[#F2C4A0]/30 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Gradient top bar */}
+                <div className={`absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r ${card.topBar} scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left`} />
 
-              <div className="relative z-10">
+                {/* Glow on hover */}
+                <div className="absolute -right-8 -top-8 h-28 w-28 rounded-full bg-[#F2C4A0]/30 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                {/* Icon */}
-                <div className={`w-14 h-14 rounded-2xl border flex items-center justify-center text-2xl text-[#3D2B1F] mb-6 transition-all duration-300 ${card.iconBg} ${card.iconHover} group-hover:text-white group-hover:scale-110 group-hover:shadow-[0_4px_16px_rgba(196,132,74,0.3)]`}>
-                  {card.icon}
+                <div className="relative z-10">
+
+                  {/* Icon */}
+                  <div className={`w-14 h-14 rounded-2xl border flex items-center justify-center text-2xl text-[#3D2B1F] mb-6 transition-all duration-300 ${card.iconBg} ${card.iconHover} group-hover:text-white group-hover:scale-110 group-hover:shadow-[0_4px_16px_rgba(196,132,74,0.3)]`}>
+                    {card.icon}
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-base font-bold text-[#3D2B1F] mb-2 transition-colors duration-300 group-hover:text-[#C4844A]">
+                    {card.title}
+                  </h3>
+
+                  {/* Animated divider */}
+                  <div className="h-px bg-[#E2D8C5] mb-3 transition-all duration-500 group-hover:bg-[#C4844A]/40 group-hover:scale-x-110 origin-left" />
+
+                  {/* Description */}
+                  <p className="text-sm text-[#7A6A50] leading-relaxed transition-colors duration-300 group-hover:text-[#5A4A30]">
+                    {card.desc}
+                  </p>
+
                 </div>
-
-                {/* Title */}
-                <h3 className="text-base font-bold text-[#3D2B1F] mb-2 transition-colors duration-300 group-hover:text-[#C4844A]">
-                  {card.title}
-                </h3>
-
-                {/* Animated divider */}
-                <div className="h-px bg-[#E2D8C5] mb-3 transition-all duration-500 group-hover:bg-[#C4844A]/40 group-hover:scale-x-110 origin-left" />
-
-                {/* Description */}
-                <p className="text-sm text-[#7A6A50] leading-relaxed transition-colors duration-300 group-hover:text-[#5A4A30]">
-                  {card.desc}
-                </p>
-
               </div>
-            </div>
+            </SwiperSlide>
           ))}
-        </div>
+        </Swiper>
 
       </div>
     </section>

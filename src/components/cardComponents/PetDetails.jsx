@@ -21,14 +21,13 @@ export default function PetDetails({ pet }) {
     const [loading, setLoading] = useState(true)
     const [token, setToken] = useState(null)
 
-    // ✅ Fixed: added [] to stop infinite loop
     useEffect(() => {
         const getToken = async () => {
             const { data: tokenData } = await authClient.token()
             setToken(tokenData?.token)
         }
         getToken()
-    }, []) // 👈 was missing
+    }, []) 
 
     useEffect(() => {
         if (!user?.id) { setLoading(false); return }
