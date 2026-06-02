@@ -64,11 +64,11 @@ export default function AddPets() {
             // router.refresh()
             window.location.reload()
 
-            toast.success('Pet added successfully!')
 
 
             // router.push('/')
         }
+        toast.success('Pet added successfully!')
 
     }
 
