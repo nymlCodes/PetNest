@@ -133,7 +133,6 @@ export default function Login() {
           </button>
 
         </div>
-        console.log("You are logged in now");
 
       </form>
     </div>

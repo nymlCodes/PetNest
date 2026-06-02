@@ -165,8 +165,9 @@ export default function PetDetails({ pet }) {
                                     </span>
                                 </p>
                                 {ownerName && (
-                                    <p className="text-sm text-[#9E7E6A] pt-1">
-                                        <span className="font-medium text-[#3D2B1F]">Listed by:</span> {ownerName}
+                                    <p className="text-sm text-[#9E7E6A] pt-1 ">
+                                        <span className="font-medium text-[#3D2B1F]">Listed by:</span> {ownerName} <br />
+                                        <span className="font-medium text-[#3D2B1F]">Email Address:</span> {ownerEmail}
                                     </p>
                                 )}
                             </motion.div>
