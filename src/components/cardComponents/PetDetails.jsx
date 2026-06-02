@@ -7,6 +7,8 @@ import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 
 export default function PetDetails({ pet }) {
+    console.log(pet, 'from pet details');
+    
 
     const router = useRouter()
     const { data: session } = authClient.useSession()
@@ -125,7 +127,7 @@ export default function PetDetails({ pet }) {
                                 {...fadeUp(0.2)}
                             >
                                 <h2 className="font-bold text-2xl text-[#3D2B1F]">{petName}</h2>
-                                <p className="text-sm text-[#9E7E6A] leading-relaxed mt-1">
+                                <p className="text-sm text-[#9E7E6A] leading-relaxed mt-1 min-h-10">
                                     {pet?.description || 'No description provided.'}
                                 </p>
                             </motion.div>

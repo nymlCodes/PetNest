@@ -10,15 +10,6 @@ export default async function Details({ params }) {
 
     const { id } = await params;
 
-    // if (
-    //     id === 'favicon.ico' ||
-    //     id === 'site.webmanifest' ||
-    //     id.startsWith('api') 
-    //     // id === 'my-requests'
-    // ) {
-    //     notFound();
-    // }
-
 
     const { token } = await auth.api.getToken({
         headers: await headers()
@@ -35,17 +26,11 @@ export default async function Details({ params }) {
     });
 
 
-    // if (!res.ok) {
-    //     notFound();
-    // }
 
     const pet = await res.json();
-    // console.log(pet);
+    console.log('Pets')
+    console.log( pet);
 
-
-    // if (!pet) {
-    //     notFound();
-    // }
 
 
     return (
