@@ -2,6 +2,11 @@
 import { authClient } from '@/lib/auth-client'
 import React, { useEffect, useState } from 'react'
 import { MdModeEditOutline } from 'react-icons/md'
+import { FaPaw } from 'react-icons/fa'
+
+const labelClass = "block text-xs font-semibold text-[#7A6A50] uppercase tracking-wide mb-1"
+const inputClass = "w-full h-10 rounded-xl border border-[#E2D8C5] bg-[#F6F1E8] px-3 text-sm text-[#3D2B1F] placeholder:text-[#9E7E6A] focus:outline-none focus:ring-2 focus:ring-[#C4844A]/40 focus:border-[#C4844A] transition-all duration-200"
+const selectClass = "w-full h-10 rounded-xl border border-[#E2D8C5] bg-[#F6F1E8] px-3 text-sm text-[#3D2B1F] appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#C4844A]/40 focus:border-[#C4844A] transition-all duration-200"
 
 export default function EditModal({ pet }) {
     const { data: session } = authClient.useSession()
@@ -12,7 +17,7 @@ export default function EditModal({ pet }) {
         _id, petName, species, breed = "Unknown", age, gender,
         healthStatus, vaccinationStatus, adoptionFee, location,
         imageUrl, description,
-    } = pet || {};
+    } = pet || {}
 
     const petId = _id?.toString()
 
@@ -21,35 +26,27 @@ export default function EditModal({ pet }) {
         if (modal) modal.close()
     }
 
-
     const [token, setToken] = useState(null)
 
+    // ✅ Fixed infinite loop — added []
     useEffect(() => {
         const getToken = async () => {
             const { data: tokenData } = await authClient.token()
             setToken(tokenData?.token)
         }
         getToken()
-    })
-
-    // console.log(token);
-
-
+    }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-
-
         const formData = new FormData(e.currentTarget)
         const updatedData = Object.fromEntries(formData.entries())
-
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}pets/${_id}`, {
                 method: 'PATCH',
                 headers: {
                     'content-type': 'application/json',
                     authorization: `Bearer ${token}`
-
                 },
                 body: JSON.stringify(updatedData)
             })
@@ -63,225 +60,201 @@ export default function EditModal({ pet }) {
 
     return (
         <div>
+            {/* Trigger button */}
             <button
                 onClick={() => document.getElementById(`edit_modal_${petId}`).showModal()}
                 className="relative w-full overflow-hidden bg-[#F2C4A0]/40 hover:bg-[#C4844A] border border-[#C4844A]/30 hover:border-[#C4844A] text-[#8B5E3C] hover:text-white py-2.5 rounded-xl text-xs font-semibold transition-all duration-300 cursor-pointer group"
             >
-                {/* Reflective shine effect on hover */}
                 <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700" />
-
-                {/* Content layer */}
                 <span className="relative flex items-center justify-center gap-1.5">
-                    Edit <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#C4844A] group-hover:bg-white text-white group-hover:text-[#C4844A] text-[10px] font-bold transition-colors duration-300"><MdModeEditOutline /></span>
+                    Edit
+                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#C4844A] group-hover:bg-white text-white group-hover:text-[#C4844A] text-[10px] transition-colors duration-300">
+                        <MdModeEditOutline />
+                    </span>
                 </span>
             </button>
 
-            <dialog id={`edit_modal_${petId}`} className="modal">
-                <div className="bg-white border border-gray-100 shadow-md rounded-2xl p-4 md:p-5 max-w-2xl mx-auto w-full">
-                    <form onSubmit={handleSubmit}>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {/* Modal */}
+            <dialog id={`edit_modal_${petId}`} className="modal p-0">
+                <div className="modal-box bg-[#FFFDF8] border border-[#E2D8C5] rounded-3xl shadow-[0_20px_60px_rgba(196,132,74,0.15)] p-0 w-full max-w-2xl mx-auto max-h-[90vh] overflow-hidden flex flex-col">
 
-                            {/* Pet Name */}
-                            <div className="md:col-span-2">
-                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">Pet Name</label>
-                                <input
-                                    defaultValue={petName}
-                                    name="petName"
-                                    placeholder="e.g. Buddy"
-                                    required
-                                    className="w-full h-9 rounded-lg border border-gray-200 bg-white px-3 text-[13px] text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent transition"
-                                />
+                    {/* Header */}
+                    <div className="flex items-center justify-between px-5 py-4 border-b border-[#E2D8C5] bg-[#F6F1E8] flex-shrink-0">
+                        <div className="flex items-center gap-2.5">
+                            <div className="w-8 h-8 rounded-xl bg-[#C4844A] flex items-center justify-center shadow">
+                                <MdModeEditOutline className="text-white text-sm" />
                             </div>
-
-                            {/* Species */}
                             <div>
-                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">Species</label>
-                                <div className="relative">
-                                    <select
-                                        defaultValue={species || ""}
-                                        name="species"
-                                        required
-                                        className="w-full h-9 rounded-lg border border-gray-200 bg-white px-3 text-[13px] text-gray-900 appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent transition"
-                                    >
-                                        <option value="" disabled>Select species</option>
-                                        <option value="Dog">Dog</option>
-                                        <option value="Cat">Cat</option>
-                                        <option value="Bird">Bird</option>
-                                        <option value="Rabbit">Rabbit</option>
-                                        <option value="Hamster">Hamster</option>
-                                        <option value="Fish">Fish</option>
-                                        <option value="Turtle">Turtle</option>
-                                        <option value="Other">Other</option>
-                                    </select>
-                                    <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-[10px]">▾</span>
+                                <h3 className="font-black text-sm text-[#3D2B1F] leading-tight">Edit Pet</h3>
+                                <p className="text-xs text-[#9E7E6A]">{petName}</p>
+                            </div>
+                        </div>
+                        <button
+                            type="button"
+                            onClick={closeButton}
+                            className="w-7 h-7 rounded-lg bg-[#E2D8C5] hover:bg-[#C4844A] text-[#3D2B1F] hover:text-white flex items-center justify-center text-sm transition-all duration-200 cursor-pointer"
+                        >
+                            ✕
+                        </button>
+                    </div>
+
+                    {/* Scrollable form body */}
+                    <div className="overflow-y-auto flex-1 px-5 py-5">
+                        <form onSubmit={handleSubmit} id={`edit_form_${petId}`}>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                                {/* Pet Name */}
+                                <div className="sm:col-span-2">
+                                    <label className={labelClass}>Pet Name</label>
+                                    <input defaultValue={petName} name="petName" placeholder="e.g. Buddy" required className={inputClass} />
                                 </div>
-                            </div>
 
-                            {/* Breed */}
-                            <div>
-                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">Breed</label>
-                                <input
-                                    defaultValue={breed}
-                                    name="breed"
-                                    placeholder="e.g. Golden Retriever"
-                                    className="w-full h-9 rounded-lg border border-gray-200 bg-white px-3 text-[13px] text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent transition"
-                                />
-                            </div>
-
-                            {/* Age */}
-                            <div>
-                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">Age</label>
-                                <input
-                                    defaultValue={age}
-                                    name="age"
-                                    placeholder="e.g. 2 years"
-                                    required
-                                    className="w-full h-9 rounded-lg border border-gray-200 bg-white px-3 text-[13px] text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent transition"
-                                />
-                            </div>
-
-                            {/* Gender */}
-                            <div>
-                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">Gender</label>
-                                <div className="relative">
-                                    <select
-                                        name="gender"
-                                        required
-                                        defaultValue={gender || ""}
-                                        className="w-full h-9 rounded-lg border border-gray-200 bg-white px-3 text-[13px] text-gray-900 appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent transition"
-                                    >
-                                        <option value="" disabled>Select gender</option>
-                                        <option value="Male">♂ Male</option>
-                                        <option value="Female">♀ Female</option>
-                                    </select>
-                                    <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-[10px]">▾</span>
+                                {/* Species */}
+                                <div>
+                                    <label className={labelClass}>Species</label>
+                                    <div className="relative">
+                                        <select defaultValue={species || ""} name="species" required className={selectClass}>
+                                            <option value="" disabled>Select species</option>
+                                            <option value="Dog">Dog</option>
+                                            <option value="Cat">Cat</option>
+                                            <option value="Bird">Bird</option>
+                                            <option value="Rabbit">Rabbit</option>
+                                            <option value="Hamster">Hamster</option>
+                                            <option value="Fish">Fish</option>
+                                            <option value="Turtle">Turtle</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                        <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#C4844A] text-xs">▾</span>
+                                    </div>
                                 </div>
-                            </div>
 
-                            {/* Health Status */}
-                            <div>
-                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">Health Status</label>
-                                <div className="relative">
-                                    <select
-                                        name="healthStatus"
-                                        required
-                                        defaultValue={healthStatus || ""}
-                                        className="w-full h-9 rounded-lg border border-gray-200 bg-white px-3 text-[13px] text-gray-900 appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent transition"
-                                    >
-                                        <option value="" disabled>Select health status</option>
-                                        <option value="Healthy">Healthy</option>
-                                        <option value="Minor Issues">Minor Issues</option>
-                                        <option value="Under Treatment">Under Treatment</option>
-                                        <option value="Needs Special Care">Needs Special Care</option>
-                                    </select>
-                                    <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-[10px]">▾</span>
+                                {/* Breed */}
+                                <div>
+                                    <label className={labelClass}>Breed</label>
+                                    <input defaultValue={breed} name="breed" placeholder="e.g. Golden Retriever" className={inputClass} />
                                 </div>
-                            </div>
 
-                            {/* Vaccination Status */}
-                            <div>
-                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">Vaccination Status</label>
-                                <div className="relative">
-                                    <select
-                                        name="vaccinationStatus"
-                                        required
-                                        defaultValue={vaccinationStatus || ""}
-                                        className="w-full h-9 rounded-lg border border-gray-200 bg-white px-3 text-[13px] text-gray-900 appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent transition"
-                                    >
-                                        <option value="" disabled>Select status</option>
-                                        <option value="Fully Vaccinated">Fully Vaccinated</option>
-                                        <option value="Partially Vaccinated">Partially Vaccinated</option>
-                                        <option value="Not Vaccinated">Not Vaccinated</option>
-                                        <option value="Unknown">Unknown</option>
-                                    </select>
-                                    <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-[10px]">▾</span>
+                                {/* Age */}
+                                <div>
+                                    <label className={labelClass}>Age</label>
+                                    <input defaultValue={age} name="age" placeholder="e.g. 2 years" required className={inputClass} />
                                 </div>
-                            </div>
 
-                            {/* Adoption Fee */}
-                            <div>
-                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">Adoption Fee (USD)</label>
-                                <div className="relative">
-                                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs">$</span>
-                                    <input
-                                        defaultValue={adoptionFee}
-                                        type="number"
-                                        name="adoptionFee"
-                                        placeholder="0"
-                                        min="0"
-                                        className="w-full h-9 rounded-lg border border-gray-200 bg-white pl-7 pr-3 text-[13px] text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent transition"
+                                {/* Gender */}
+                                <div>
+                                    <label className={labelClass}>Gender</label>
+                                    <div className="relative">
+                                        <select name="gender" required defaultValue={gender || ""} className={selectClass}>
+                                            <option value="" disabled>Select gender</option>
+                                            <option value="Male">♂ Male</option>
+                                            <option value="Female">♀ Female</option>
+                                        </select>
+                                        <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#C4844A] text-xs">▾</span>
+                                    </div>
+                                </div>
+
+                                {/* Health Status */}
+                                <div>
+                                    <label className={labelClass}>Health Status</label>
+                                    <div className="relative">
+                                        <select name="healthStatus" required defaultValue={healthStatus || ""} className={selectClass}>
+                                            <option value="" disabled>Select health status</option>
+                                            <option value="Healthy">Healthy</option>
+                                            <option value="Minor Issues">Minor Issues</option>
+                                            <option value="Under Treatment">Under Treatment</option>
+                                            <option value="Needs Special Care">Needs Special Care</option>
+                                        </select>
+                                        <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#C4844A] text-xs">▾</span>
+                                    </div>
+                                </div>
+
+                                {/* Vaccination Status */}
+                                <div>
+                                    <label className={labelClass}>Vaccination Status</label>
+                                    <div className="relative">
+                                        <select name="vaccinationStatus" required defaultValue={vaccinationStatus || ""} className={selectClass}>
+                                            <option value="" disabled>Select status</option>
+                                            <option value="Fully Vaccinated">Fully Vaccinated</option>
+                                            <option value="Partially Vaccinated">Partially Vaccinated</option>
+                                            <option value="Not Vaccinated">Not Vaccinated</option>
+                                            <option value="Unknown">Unknown</option>
+                                        </select>
+                                        <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#C4844A] text-xs">▾</span>
+                                    </div>
+                                </div>
+
+                                {/* Adoption Fee */}
+                                <div>
+                                    <label className={labelClass}>Adoption Fee (USD)</label>
+                                    <div className="relative">
+                                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#C4844A] text-sm font-semibold">$</span>
+                                        <input
+                                            defaultValue={adoptionFee}
+                                            type="number" name="adoptionFee" placeholder="0" min="0"
+                                            className="w-full h-10 rounded-xl border border-[#E2D8C5] bg-[#F6F1E8] pl-7 pr-3 text-sm text-[#3D2B1F] placeholder:text-[#9E7E6A] focus:outline-none focus:ring-2 focus:ring-[#C4844A]/40 focus:border-[#C4844A] transition-all duration-200"
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* Location */}
+                                <div className="sm:col-span-2">
+                                    <label className={labelClass}>Location / Shelter Name</label>
+                                    <input defaultValue={location} name="location" placeholder="e.g. Happy Paws Shelter" required className={inputClass} />
+                                </div>
+
+                                {/* Image URL */}
+                                <div className="sm:col-span-2">
+                                    <label className={labelClass}>Pet Photo URL</label>
+                                    <input defaultValue={imageUrl} type="url" name="imageUrl" placeholder="https://i.ibb.co/your-image.jpg" className={inputClass} />
+                                </div>
+
+                                {/* Description */}
+                                <div className="sm:col-span-2">
+                                    <label className={labelClass}>About this Pet</label>
+                                    <textarea
+                                        defaultValue={description}
+                                        name="description" placeholder="Tell us about the pet..." rows={3} required
+                                        className="w-full min-h-[80px] max-h-[140px] rounded-xl border border-[#E2D8C5] bg-[#F6F1E8] px-3 py-2.5 text-sm text-[#3D2B1F] placeholder:text-[#9E7E6A] focus:outline-none focus:ring-2 focus:ring-[#C4844A]/40 focus:border-[#C4844A] transition-all duration-200 resize-none"
                                     />
                                 </div>
+
+                                {/* Owner Email */}
+                                <div className="sm:col-span-2">
+                                    <label className={labelClass}>Owner Email</label>
+                                    <input
+                                        type="email" name="ownerEmail"
+                                        value={userEmail || pet?.ownerEmail || "unknown@example.com"}
+                                        readOnly
+                                        className="w-full h-10 rounded-xl border border-[#E2D8C5] bg-[#F6F1E8] px-3 text-sm text-[#9E7E6A] cursor-not-allowed focus:outline-none select-none"
+                                    />
+                                </div>
+
                             </div>
+                        </form>
+                    </div>
 
-                            {/* Location */}
-                            <div className="md:col-span-2">
-                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">Location / Shelter Name</label>
-                                <input
-                                    defaultValue={location}
-                                    name="location"
-                                    placeholder="e.g. Happy Paws Shelter, New York"
-                                    required
-                                    className="w-full h-9 rounded-lg border border-gray-200 bg-white px-3 text-[13px] text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent transition"
-                                />
-                            </div>
+                    {/* Footer buttons — fixed at bottom */}
+                    <div className="flex gap-3 px-5 py-4 border-t border-[#E2D8C5] bg-[#F6F1E8] flex-shrink-0">
+                        <button
+                            type="button"
+                            onClick={closeButton}
+                            className="flex-1 h-11 rounded-xl bg-[#FFFDF8] hover:bg-[#EDE4D4] border border-[#E2D8C5] text-[#3D2B1F] text-sm font-semibold transition-all duration-200 cursor-pointer active:scale-[0.98]"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="submit"
+                            form={`edit_form_${petId}`}
+                            className="relative flex-1 h-11 rounded-xl overflow-hidden bg-[#3D2B1F] hover:bg-[#C4844A] text-[#FDF6EC] text-sm font-semibold transition-all duration-300 cursor-pointer active:scale-[0.98] group"
+                        >
+                            <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700" />
+                            <span className="relative flex items-center justify-center gap-2">
+                                <FaPaw className="text-xs" />
+                                Save Changes
+                            </span>
+                        </button>
+                    </div>
 
-                            {/* Image URL */}
-                            <div className="md:col-span-2">
-                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">Pet Photo URL</label>
-                                <input
-                                    defaultValue={imageUrl}
-                                    type="url"
-                                    name="imageUrl"
-                                    placeholder="https://i.ibb.co/your-image.jpg"
-                                    className="w-full h-9 rounded-lg border border-gray-200 bg-white px-3 text-[13px] text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent transition"
-                                />
-                            </div>
-
-                            {/* Description */}
-                            <div className="md:col-span-2">
-                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">About this Pet</label>
-                                <textarea
-                                    defaultValue={description}
-                                    name="description"
-                                    placeholder="Tell us about the pet..."
-                                    rows={3}
-                                    required
-                                    className="w-full min-h-[70px] max-h-[120px] rounded-lg border border-gray-200 bg-white px-3 py-2 text-[13px] text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent transition resize-none"
-                                />
-                            </div>
-
-                            {/* Owner Email */}
-                            <div className="md:col-span-2">
-                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">Owner Email</label>
-                                <input
-                                    type="email"
-                                    name="ownerEmail"
-                                    value={userEmail || pet?.ownerEmail || "unknown@example.com"}
-                                    readOnly
-                                    className="w-full h-9 rounded-lg border border-gray-200 bg-gray-50 px-3 text-[13px] text-gray-400 cursor-not-allowed focus:outline-none"
-                                />
-                            </div>
-
-                        </div>
-
-                        {/* Buttons */}
-                        <div className="grid grid-cols-2 gap-3 mt-4">
-                            <button
-                                type="button"
-                                onClick={closeButton}
-                                className="w-full h-10 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 text-gray-700 text-[13px] font-medium transition"
-                            >
-                                Cancel
-                            </button>
-                            <button
-                                type="submit"
-                                className="w-full h-10 rounded-lg bg-amber-400 hover:bg-amber-500 text-white text-[13px] font-medium transition"
-                            >
-                                Save
-                            </button>
-                        </div>
-                    </form>
                 </div>
 
                 <form method="dialog" className="modal-backdrop">
