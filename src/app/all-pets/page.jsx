@@ -24,6 +24,9 @@ export default function AllPets() {
 
   const search = (e) => setName(e.target.value)
 
+  console.log(pets);
+  
+
   return (
     <div className="relative min-h-screen bg-[#FDF6EC] pt-32 pb-20 overflow-x-hidden">
 
@@ -44,7 +47,7 @@ export default function AllPets() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4, delay: 0.1 }}
         >
-          🐾 Find Your Match
+           Find Your Match
         </motion.span>
 
         <motion.h1

@@ -15,10 +15,11 @@ const cards = [
   {
     icon: <FaBowlFood />,
     title: 'Nutrition & Hydration',
-    desc: 'Feed high-quality food appropriate for your pet\'s age and size. Always provide clean, fresh water, and keep harmful foods like chocolate or onions far out of reach.',
+    desc: "Feed high-quality food appropriate for your pet's age and size. Always provide clean, fresh water, and keep harmful foods like chocolate or onions far out of reach.",
     iconBg: 'bg-[#F2C4A0]/40 border-[#F2C4A0]',
     iconHover: 'group-hover:bg-[#C4844A]',
     topBar: 'from-[#C4844A] to-[#B8773F]',
+    glow: 'bg-[#F2C4A0]',
   },
   {
     icon: <FaHospital />,
@@ -27,6 +28,7 @@ const cards = [
     iconBg: 'bg-[#C8DFC9]/40 border-[#C8DFC9]',
     iconHover: 'group-hover:bg-[#7A9E7E]',
     topBar: 'from-[#7A9E7E] to-[#6B8F6F]',
+    glow: 'bg-[#C8DFC9]',
   },
   {
     icon: <IoLogoOctocat />,
@@ -35,6 +37,7 @@ const cards = [
     iconBg: 'bg-[#F5DBA8]/40 border-[#F5DBA8]',
     iconHover: 'group-hover:bg-[#E8A94F]',
     topBar: 'from-[#E8A94F] to-[#D4963C]',
+    glow: 'bg-[#F5DBA8]',
   },
   {
     icon: <FaHome />,
@@ -43,6 +46,7 @@ const cards = [
     iconBg: 'bg-[#D4B49A]/40 border-[#D4B49A]',
     iconHover: 'group-hover:bg-[#8B5E3C]',
     topBar: 'from-[#8B5E3C] to-[#7A4F30]',
+    glow: 'bg-[#D4B49A]',
   },
   {
     icon: <FaShieldHeart />,
@@ -51,16 +55,20 @@ const cards = [
     iconBg: 'bg-[#F5C4D0]/40 border-[#F5C4D0]',
     iconHover: 'group-hover:bg-[#C4607A]',
     topBar: 'from-[#C4607A] to-[#B8506A]',
+    glow: 'bg-[#F5C4D0]',
   },
 ]
 
 export default function PetCare() {
   return (
-    <section className="relative overflow-hidden bg-[#FFFBF5] px-6 py-24">
+    // ✅ removed overflow-hidden from section — it was clipping the hover lift
+    <section className="relative bg-[#FFFBF5] px-6 py-24">
 
-      {/* Background glows */}
-      <div className="absolute -left-20 top-0 h-72 w-72 rounded-full bg-[#F2C4A0]/20 blur-3xl pointer-events-none" />
-      <div className="absolute -right-20 bottom-0 h-72 w-72 rounded-full bg-[#C8DFC9]/20 blur-3xl pointer-events-none" />
+      {/* Background glows — now on a separate clipped div so they don't escape */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -left-20 top-0 h-72 w-72 rounded-full bg-[#F2C4A0]/20 blur-3xl" />
+        <div className="absolute -right-20 bottom-0 h-72 w-72 rounded-full bg-[#C8DFC9]/20 blur-3xl" />
+      </div>
 
       <div className="relative max-w-7xl mx-auto">
 
@@ -90,40 +98,40 @@ export default function PetCare() {
           autoplay={{ delay: 2500, disableOnInteraction: false }}
           pagination={{ clickable: true }}
           breakpoints={{
-            0:    { slidesPerView: 1 },
-            640:  { slidesPerView: 2 },
+            0: { slidesPerView: 1 },
+            640: { slidesPerView: 2 },
             1024: { slidesPerView: 3 },
             1280: { slidesPerView: 4 },
           }}
-          className="pb-14"
+          className="petcare-swiper"
         >
           {cards.map((card, index) => (
             <SwiperSlide key={index}>
-              <div className="group relative overflow-hidden bg-[#FFFDF8] p-7 rounded-2xl border border-[#E2D8C5] shadow-[0_2px_16px_rgba(180,160,110,0.08)] transition-all duration-500 hover:-translate-y-3 hover:scale-[1.02] hover:shadow-[0_20px_40px_rgba(196,132,74,0.15)] hover:border-[#C4844A]/40 cursor-default">
+              <div className="relative overflow-hidden bg-[#FFFDF8] p-7 rounded-2xl border border-[#E2D8C5] shadow-[0_2px_16px_rgba(180,160,110,0.08)] h-full flex flex-col">
 
                 {/* Gradient top bar */}
-                <div className={`absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r ${card.topBar} scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left`} />
+                <div className={`absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r ${card.topBar}`} />
 
-                {/* Glow on hover */}
-                <div className="absolute -right-8 -top-8 h-28 w-28 rounded-full bg-[#F2C4A0]/30 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Glow */}
+                <div className={`absolute -right-8 -top-8 h-28 w-28 rounded-full ${card.glow} blur-2xl opacity-30`} />
 
-                <div className="relative z-10">
+                <div className="relative z-10 flex flex-col flex-1">
 
                   {/* Icon */}
-                  <div className={`w-14 h-14 rounded-2xl border flex items-center justify-center text-2xl text-[#3D2B1F] mb-6 transition-all duration-300 ${card.iconBg} ${card.iconHover} group-hover:text-white group-hover:scale-110 group-hover:shadow-[0_4px_16px_rgba(196,132,74,0.3)]`}>
+                  <div className={`w-14 h-14 rounded-2xl border flex items-center justify-center text-2xl text-[#3D2B1F] mb-6 ${card.iconBg}`}>
                     {card.icon}
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-base font-bold text-[#3D2B1F] mb-2 transition-colors duration-300 group-hover:text-[#C4844A]">
+                  <h3 className="text-base font-bold text-[#3D2B1F] mb-2">
                     {card.title}
                   </h3>
 
-                  {/* Animated divider */}
-                  <div className="h-px bg-[#E2D8C5] mb-3 transition-all duration-500 group-hover:bg-[#C4844A]/40 group-hover:scale-x-110 origin-left" />
+                  {/* Divider */}
+                  <div className="h-px bg-[#E2D8C5] mb-3" />
 
                   {/* Description */}
-                  <p className="text-sm text-[#7A6A50] leading-relaxed transition-colors duration-300 group-hover:text-[#5A4A30]">
+                  <p className="text-sm text-[#7A6A50] leading-relaxed">
                     {card.desc}
                   </p>
 
