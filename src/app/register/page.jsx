@@ -171,13 +171,12 @@ export default function Register() {
                 required
                 className="w-full h-11 bg-[#F6F1E8] border border-[#E2D8C5] rounded-xl px-4 pr-11 text-[#3B3120] placeholder:text-[#9E7E6A] focus:outline-none focus:ring-2 focus:ring-[#C4844A] focus:border-transparent transition"
               />
-              <button
-                type="button"
+              <span
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9E7E6A] hover:text-[#C4844A] transition-colors"
               >
                 {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
-              </button>
+              </span>
             </div>
           </div>
 
@@ -194,13 +193,12 @@ export default function Register() {
                 required
                 className="w-full h-11 bg-[#F6F1E8] border border-[#E2D8C5] rounded-xl px-4 pr-11 text-[#3B3120] placeholder:text-[#9E7E6A] focus:outline-none focus:ring-2 focus:ring-[#C4844A] focus:border-transparent transition"
               />
-              <button
-                type="button"
+              <span
                 onClick={() => setShowConfirmPass(!showConfirmPass)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9E7E6A] hover:text-[#C4844A] transition-colors"
               >
                 {showConfirmPass ? <FaRegEye /> : <FaRegEyeSlash />}
-              </button>
+              </span>
             </div>
           </div>
 
