@@ -5,11 +5,14 @@ import { createAuthClient } from "better-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { FaGoogle } from "react-icons/fa";
+import { FaGoogle, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { FaPaw } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 export default function Register() {
+
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPass, setShowConfirmPass] = useState(false)
   const authClient = createAuthClient()
 
   const googleButton = async () => {
@@ -102,13 +105,13 @@ export default function Register() {
 
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 p-3 rounded-xl mb-5 text-sm font-medium">
-              ⚠️ {error}
+              {error}
             </div>
           )}
 
           {success && (
             <div className="bg-[#C8DFC9]/40 border border-[#7A9E7E] text-[#4A7A4E] p-3 rounded-xl mb-5 text-sm font-medium">
-              ✅ Registration successful! Redirecting...
+              Registration successful! Redirecting...
             </div>
           )}
 
@@ -155,31 +158,50 @@ export default function Register() {
           </div>
 
           {/* Password */}
+          {/* Password */}
           <div className="mb-4">
             <label className="block text-xs font-semibold text-[#7A6A50] uppercase tracking-wide mb-1.5">Password</label>
-            <input
-              type="text"
-              name="password"
-              placeholder="Min 8 chars, A-Z & a-z"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              className="w-full h-11 bg-[#F6F1E8] border border-[#E2D8C5] rounded-xl px-4 text-[#3B3120] placeholder:text-[#9E7E6A] focus:outline-none focus:ring-2 focus:ring-[#C4844A] focus:border-transparent transition"
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                placeholder="Min 8 chars, A-Z & a-z"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                className="w-full h-11 bg-[#F6F1E8] border border-[#E2D8C5] rounded-xl px-4 pr-11 text-[#3B3120] placeholder:text-[#9E7E6A] focus:outline-none focus:ring-2 focus:ring-[#C4844A] focus:border-transparent transition"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9E7E6A] hover:text-[#C4844A] transition-colors"
+              >
+                {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
+              </button>
+            </div>
           </div>
 
           {/* Confirm Password */}
           <div className="mb-6">
             <label className="block text-xs font-semibold text-[#7A6A50] uppercase tracking-wide mb-1.5">Confirm Password</label>
-            <input
-              type="text"
-              name="confirmPass"
-              placeholder="Re-enter your password"
-              value={formData.confirmPass}
-              onChange={handleChange}
-              required
-              className="w-full h-11 bg-[#F6F1E8] border border-[#E2D8C5] rounded-xl px-4 text-[#3B3120] placeholder:text-[#9E7E6A] focus:outline-none focus:ring-2 focus:ring-[#C4844A] focus:border-transparent transition"
-            />
+            <div className="relative">
+              <input
+                type={showConfirmPass ? 'text' : 'password'}
+                name="confirmPass"
+                placeholder="Re-enter your password"
+                value={formData.confirmPass}
+                onChange={handleChange}
+                required
+                className="w-full h-11 bg-[#F6F1E8] border border-[#E2D8C5] rounded-xl px-4 pr-11 text-[#3B3120] placeholder:text-[#9E7E6A] focus:outline-none focus:ring-2 focus:ring-[#C4844A] focus:border-transparent transition"
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPass(!showConfirmPass)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9E7E6A] hover:text-[#C4844A] transition-colors"
+              >
+                {showConfirmPass ? <FaRegEye /> : <FaRegEyeSlash />}
+              </button>
+            </div>
           </div>
 
           {/* Register Button */}

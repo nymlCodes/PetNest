@@ -3,12 +3,13 @@ import { authClient } from '@/lib/auth-client'
 import { betterAuth } from 'better-auth'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React from 'react'
-import { FaGoogle } from 'react-icons/fa'
+import React, { useState } from 'react'
+import { FaGoogle, FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
 import { FaPaw } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 
 export default function Login() {
+  const [password, setPassword] = useState(false)
   // const auth = betterAuth
 
   const googleButton = async () => {
@@ -77,12 +78,21 @@ export default function Login() {
             <label className="block text-xs font-semibold text-[#7A6A50] uppercase tracking-wide mb-1.5">
               Password
             </label>
-            <input
-              type="password"
-              name="password"
-              placeholder="••••••••"
-              className="w-full h-11 bg-[#F6F1E8] border border-[#E2D8C5] rounded-xl px-4 text-[#3B3120] placeholder:text-[#9E7E6A] focus:outline-none focus:ring-2 focus:ring-[#C4844A] focus:border-transparent transition"
-            />
+            <div className="relative">
+              <input
+                type={password ? 'text' : 'password'}
+                name="password"
+                placeholder="••••••••"
+                className="w-full h-11 bg-[#F6F1E8] border border-[#E2D8C5] rounded-xl px-4 pr-11 text-[#3B3120] placeholder:text-[#9E7E6A] focus:outline-none focus:ring-2 focus:ring-[#C4844A] focus:border-transparent transition"
+              />
+              <button
+                type="button"
+                onClick={() => setPassword(!password)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9E7E6A] hover:text-[#C4844A] transition-colors"
+              >
+                {password ? <FaRegEye /> : <FaRegEyeSlash />}
+              </button>
+            </div>
           </div>
 
           {/* Login Button */}
@@ -125,7 +135,7 @@ export default function Login() {
 
         </div>
         console.log("You are logged in now");
-        
+
       </form>
     </div>
   )

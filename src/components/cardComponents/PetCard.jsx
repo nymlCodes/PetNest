@@ -37,7 +37,7 @@ export default function PetCard({ pet }) {
                             <div className="absolute inset-0 bg-gradient-to-t from-[#3D2B1F]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                             {/* Floating badge that appears on hover */}
-                            <div className="absolute top-3 right-3 bg-[#C4844A] text-[#FDF6EC] text-xs font-bold px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 -translate-y-2 group-hover:translate-y-0 transition-all duration-400 shadow-lg">
+                            <div className="absolute top-3 right-3 bg-[#C4844A] text-[#FDF6EC] text-xs font-bold px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 -translate-y-2 group-hover:translate-y-0 transition-all duration-400 shadow-lg flex items-center gap-2">
                                 <MdOutlinePets />
                                 Available
                             </div>
