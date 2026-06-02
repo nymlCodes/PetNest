@@ -47,7 +47,7 @@ export default function Login() {
       <div className="absolute -top-20 -left-20 w-80 h-80 bg-[#F2C4A0]/30 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-[#C8DFC9]/20 rounded-full blur-3xl pointer-events-none" />
 
-      <form onSubmit={loginButton} className="relative max-w-[600px] w-full mx-auto">
+      <form onSubmit={loginButton} className="relative max-w-[600px] w-full mx-auto mt-20 ">
 
         <div className="bg-[#FFFDF8] border border-[#E2D8C5] rounded-3xl shadow-[0_8px_40px_rgba(196,132,74,0.12)] md:p-10 p-6">
 
