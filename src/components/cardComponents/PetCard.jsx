@@ -60,7 +60,7 @@ export default function PetCard({ pet }) {
 
                     {/* Description */}
                     <motion.p
-                        className="text-sm leading-relaxed text-[#7A6A50] mb-6 line-clamp-3 transition-all duration-300 group-hover:text-[#5A4A30]"
+                        className="text-sm leading-relaxed text-[#7A6A50] mb-6 line-clamp-3 transition-all min-h-[45px] h-full duration-300 group-hover:text-[#5A4A30]"
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}

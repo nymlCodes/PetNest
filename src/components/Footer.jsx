@@ -32,11 +32,11 @@ export default function Footer() {
                         <div className="flex flex-col gap-3">
                             <a href="mailto:hello@petnest.com" className="group text-sm text-[#7A6A50] hover:text-[#C4844A] flex items-center gap-2 transition-colors duration-200">
                                 <MdEmail className="text-[#C4844A] text-base flex-shrink-0" />
-                                hello@petnest.com
+                                neyamulislam946@gmail.com
                             </a>
                             <a href="tel:+1234567890" className="group text-sm text-[#7A6A50] hover:text-[#C4844A] flex items-center gap-2 transition-colors duration-200">
                                 <MdPhone className="text-[#C4844A] text-base flex-shrink-0" />
-                                +1 (234) 567-890
+                               +8801874062550
                             </a>
                             <span className="text-sm text-[#7A6A50] flex items-center gap-2">
                                 <MdLocationPin className="text-[#C4844A] text-base flex-shrink-0" />
