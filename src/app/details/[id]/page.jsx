@@ -20,7 +20,7 @@ export default async function Details({ params }) {
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}pets/${id}`, {
         headers:{
-            authorization: `Beared ${token}`
+            authorization: `Bearer ${token}`
         }
 
     });

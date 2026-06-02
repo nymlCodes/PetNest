@@ -318,7 +318,8 @@ export default function Navbar() {
                                             onClick={() => setMobileOpen(false)}
                                             className="w-full text-center px-4 py-3 rounded-2xl bg-[#3D2B1F] hover:bg-[#C4844A] text-white text-sm font-semibold transition-all duration-300"
                                         >
-                                            🐾 Get Started
+                                            <MdOutlinePets />
+                                            Get Started
                                         </Link>
                                     </div>
                                 )}

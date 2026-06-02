@@ -5,6 +5,7 @@ import { FaPaw, FaPlus, FaList, FaHeart } from 'react-icons/fa'
 import AddPets from '../add-pets/page'
 import MyRequest from '../my-requests/page'
 import { motion, AnimatePresence } from 'framer-motion'
+import { MdOutlinePets } from 'react-icons/md'
 
 const navItems = [
   { key: 'list', label: 'My List', icon: <FaList /> },
@@ -158,7 +159,8 @@ export default function Dashboard() {
             >
               <div className="flex items-center gap-2 text-xs text-[#9E7E6A]">
                 <FaPaw className="text-[#C4844A] text-xs" />
-                <span>Pet Nest — Made with love 🐾</span>
+                <span className='flex items-center'>Pet Nest — Made with love <MdOutlinePets />
+</span>
               </div>
             </motion.div>
           </motion.aside>

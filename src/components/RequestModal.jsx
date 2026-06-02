@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { FaPaw } from 'react-icons/fa'
-import { MdEmail } from 'react-icons/md'
+import { MdEmail, MdOutlinePets } from 'react-icons/md'
 import { IoCalendar } from 'react-icons/io5'
 import { authClient } from '@/lib/auth-client'
 import { toast } from 'react-toastify'
@@ -115,7 +115,8 @@ export default function RequestModal({ pet, onAdopted }) {
 
             {users.length === 0 && (
               <div className="text-center py-12">
-                <div className="text-4xl mb-3">🐾</div>
+                <div className="text-4xl mb-3"><MdOutlinePets />
+</div>
                 <p className="text-sm font-semibold text-[#3D2B1F]">No requests yet</p>
                 <p className="text-xs text-[#9E7E6A] mt-1">Adoption requests will appear here.</p>
               </div>

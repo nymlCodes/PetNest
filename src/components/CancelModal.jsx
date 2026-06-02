@@ -1,4 +1,5 @@
 import React from 'react'
+import { MdOutlinePets } from 'react-icons/md'
 
 export default function CancelModal({ req, onDelete }) {
     const openModal = () => document.getElementById(`cancel_modal_${req._id}`).showModal()
@@ -41,7 +42,8 @@ export default function CancelModal({ req, onDelete }) {
                     {/* Icon */}
                     <div className="flex justify-center mb-5">
                         <div className="w-16 h-16 rounded-2xl bg-red-50 border border-red-100 flex items-center justify-center text-3xl">
-                            🐾
+                            <MdOutlinePets />
+
                         </div>
                     </div>
 

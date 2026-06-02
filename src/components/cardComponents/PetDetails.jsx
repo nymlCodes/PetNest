@@ -5,10 +5,11 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
+import { MdOutlinePets } from 'react-icons/md';
 
 export default function PetDetails({ pet }) {
     console.log(pet, 'from pet details');
-    
+
 
     const router = useRouter()
     const { data: session } = authClient.useSession()
@@ -29,7 +30,7 @@ export default function PetDetails({ pet }) {
             setToken(tokenData?.token)
         }
         getToken()
-    }, []) 
+    }, [])
 
     useEffect(() => {
         if (!user?.id) { setLoading(false); return }
@@ -114,7 +115,8 @@ export default function PetDetails({ pet }) {
                                 />
                             ) : (
                                 <div className="w-full h-full bg-[#F6F1E8] flex items-center justify-center text-sm text-[#9E7E6A]">
-                                    🐾 No Image Available
+                                    <MdOutlinePets />
+                                    No Image Available
                                 </div>
                             )}
                         </motion.div>
@@ -127,7 +129,7 @@ export default function PetDetails({ pet }) {
                                 {...fadeUp(0.2)}
                             >
                                 <h2 className="font-bold text-2xl text-[#3D2B1F]">{petName}</h2>
-                                <p className="text-sm text-[#9E7E6A] leading-relaxed mt-1 min-h-10">
+                                <p className="text-sm text-[#9E7E6A] leading-relaxed mt-1 min-h-30">
                                     {pet?.description || 'No description provided.'}
                                 </p>
                             </motion.div>
@@ -182,7 +184,8 @@ export default function PetDetails({ pet }) {
                     {/* Form header */}
                     <motion.div className="mb-6" {...fadeUp(0.2)}>
                         <span className="inline-flex items-center rounded-full bg-[#F2C4A0] border border-[#C4844A]/30 px-4 py-1.5 text-xs font-semibold text-[#3D2B1F] mb-3">
-                            🐾 Adoption Request
+                            <MdOutlinePets />
+                            Adoption Request
                         </span>
                         <h3 className="text-xl font-bold text-[#3D2B1F]">Apply to Adopt {petName}</h3>
                         <p className="text-sm text-[#9E7E6A] mt-1">Fill in your details and we'll connect you with the owner.</p>
@@ -247,7 +250,7 @@ export default function PetDetails({ pet }) {
                         <motion.div {...fadeUp(0.5)}>
                             {alreadyRequested ? (
                                 <div className="w-full h-12 mt-2 rounded-xl bg-[#C8DFC9]/40 border border-[#7A9E7E]/40 text-[#4A7A4E] font-semibold flex items-center justify-center gap-2 cursor-not-allowed select-none">
-                                    ✅ Request Already Submitted
+                                    Request Already Submitted
                                 </div>
                             ) : (
                                 <motion.button
@@ -259,7 +262,8 @@ export default function PetDetails({ pet }) {
                                 >
                                     <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 ease-in-out" />
                                     <span className="relative flex items-center justify-center gap-2">
-                                        🐾 Submit Adoption Request
+                                        <MdOutlinePets />
+                                        Submit Adoption Request
                                         <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                                     </span>
                                 </motion.button>

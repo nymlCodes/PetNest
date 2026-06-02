@@ -38,7 +38,8 @@ export default function FeaturedPets() {
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.1 }}
         >
-          🐾 Featured This Week
+          <MdOutlinePets />
+          Featured This Week
         </motion.span>
 
         {/* Heading */}

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React from 'react'
 import { FaArrowRightLong } from 'react-icons/fa6';
 import { motion } from 'framer-motion';
+import { MdOutlinePets } from 'react-icons/md';
 
 export default function PetCard({ pet }) {
 
@@ -37,7 +38,8 @@ export default function PetCard({ pet }) {
 
                             {/* Floating badge that appears on hover */}
                             <div className="absolute top-3 right-3 bg-[#C4844A] text-[#FDF6EC] text-xs font-bold px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 -translate-y-2 group-hover:translate-y-0 transition-all duration-400 shadow-lg">
-                                🐾 Available
+                                <MdOutlinePets />
+                                Available
                             </div>
                         </>
                     )}

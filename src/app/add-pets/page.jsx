@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { FaPaw } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import { motion } from 'framer-motion'
+import { MdOutlinePets } from 'react-icons/md'
 
 const labelClass = "block text-xs font-semibold text-[#7A6A50] uppercase tracking-wide mb-1.5"
 const inputClass = "w-full h-12 rounded-xl border border-[#E2D8C5] bg-[#F6F1E8] px-4 text-sm text-[#3D2B1F] placeholder:text-[#9E7E6A] focus:outline-none focus:ring-2 focus:ring-[#C4844A]/40 focus:border-[#C4844A] transition-all duration-200"
@@ -99,7 +100,8 @@ export default function AddPets() {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.4, delay: 0.1 }}
                     >
-                        🐾 New Listing
+                        <MdOutlinePets />
+                        New Listing
                     </motion.span>
 
                     <motion.h1

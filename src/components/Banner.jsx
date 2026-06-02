@@ -4,17 +4,16 @@ import hero from '../../public/hero.png'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { MdOutlinePets } from 'react-icons/md'
 
 export default function Banner() {
     return (
-        // 👇 overflow-hidden stops horizontal scroll from x animations
         <div className='bg-[#fcf0de] px-4 md:px-8 overflow-hidden'>
             <div className="min-h-screen text-center lg:text-left py-24 lg:py-0 flex flex-col-reverse lg:flex-row gap-10 lg:gap-20 w-full justify-around container mx-auto items-center">
 
                 {/* ── Left text side ── */}
                 <motion.div
                     className="space-y-5 text-[#3E2C20] max-w-[600px] w-full"
-                    // 👇 No x slide on mobile — only fade up
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, ease: 'easeOut' }}
@@ -26,7 +25,8 @@ export default function Banner() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.1 }}
                     >
-                        🐾 Find Your Match
+                        <MdOutlinePets />
+                        Find Your Match
                     </motion.span>
 
                     {/* Heading */}
@@ -68,7 +68,8 @@ export default function Banner() {
                             >
                                 <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700" />
                                 <span className="relative flex items-center justify-center gap-2">
-                                    🐾 Adopt Now
+                                    <MdOutlinePets />
+ Adopt Now
                                 </span>
                             </motion.button>
                         </Link>
@@ -179,7 +180,8 @@ export default function Banner() {
                             y: { duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }
                         }}
                     >
-                        <span className="text-base sm:text-xl">🐾</span>
+                        <span className="text-base sm:text-xl"> <MdOutlinePets />
+ </span>
                         <div>
                             <p className="text-[10px] sm:text-xs font-bold">12K+ Pets</p>
                             <p className="text-[9px] sm:text-[10px] text-white/70">Happy tails</p>

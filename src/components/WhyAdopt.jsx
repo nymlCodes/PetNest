@@ -58,7 +58,8 @@ export default function WhyAdopt() {
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.1 }}
         >
-          🐾 Make a Difference
+          <MdOutlinePets />
+ Make a Difference
         </motion.span>
 
         <motion.h1

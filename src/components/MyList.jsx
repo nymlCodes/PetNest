@@ -37,8 +37,8 @@ export default function MyList() {
   return (
     <div className='mt-30'>
       <div>
-        <h1 className='text-4xl text-center text-[#2f2219] font-extrabold mb-10'>Your listing</h1>
-        <div className='text-[#3D2B1F] font-semibold flex gap-6 justify-between'>
+        <h1 className='text-4xl text-center text-[#58492b] font-extrabold mb-10'>Your listing</h1>
+        <div className='text-[#58492b] font-semibold flex gap-6 justify-between'>
           <div className='flex-1 max-w-[300px] w-full text-center mx-auto bg-white rounded-2xl'>
             <h1>Total Listings</h1>
             <p>{pets.length}</p>
@@ -66,11 +66,11 @@ export default function MyList() {
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center py-24 gap-4 text-center">
-            <span className="text-6xl text-black"><MdOutlinePets /></span>
-            <p className="text-xl font-medium text-gray-500 tracking-wide">
+            <span className="text-6xl text-[#3D2B1F]"><MdOutlinePets /></span>
+            <p className="text-xl font-medium text-[#3D2B1F] tracking-wide">
               You haven't added any pets yet
             </p>
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-[#3D2B1F]">
               Your listings will appear here once you add them.
             </p>
           </div>

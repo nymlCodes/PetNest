@@ -1,4 +1,4 @@
-# 🐾 Pet Adoption Platform
+# Pet Adoption Platform
 
 ## Purpose
 A full-stack Pet Adoption Platform built with the MERN Stack. The system allows users to explore pets available for adoption (dogs, cats, birds, rabbits, etc.), view detailed pet profiles, and submit adoption requests. Pet owners and shelters can manage listings, approve or reject adoption requests, and handle the full adoption workflow — all backed by secure authentication and a REST API.
