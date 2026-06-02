@@ -37,7 +37,6 @@ export default function RequestModal({ pet, onAdopted }) {
       toast.success('Approved')
       onAdopted?.()
     } catch (error) {
-      console.error('Failed to approve:', error)
       toast.error('Something went wrong')
     } finally {
       setLoadingId(null) // ✅ stop loading
@@ -63,7 +62,6 @@ export default function RequestModal({ pet, onAdopted }) {
       setUsers(prev => prev.map(u => u._id === userId ? { ...u, status: 'Rejected' } : u))
       toast.info('Rejected')
     } catch (error) {
-      console.error('Failed to reject:', error)
       toast.error('Something went wrong')
     } finally {
       setLoadingId(null) // ✅ stop loading

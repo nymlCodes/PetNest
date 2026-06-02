@@ -14,7 +14,6 @@ export default async function Details({ params }) {
     const { token } = await auth.api.getToken({
         headers: await headers()
     })
-    // console.log(token);
     
 
 
@@ -28,9 +27,7 @@ export default async function Details({ params }) {
 
 
     const pet = await res.json();
-    console.log('Pets')
-    console.log( pet);
-
+   
 
 
     return (

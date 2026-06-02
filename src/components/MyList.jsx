@@ -22,7 +22,6 @@ export default function MyList() {
         { headers: { Authorization: `Bearer ${tokenData?.token}` } }
       )
       const data = await res.json()
-      console.log(data);
       
       setPets(Array.isArray(data) ? data : [])
     }

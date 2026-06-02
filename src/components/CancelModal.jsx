@@ -15,7 +15,6 @@ export default function CancelModal({ req, onDelete }) {
         onDelete(req._id)
     }
 
-    console.log(req.status);
 
     return (
         <div>

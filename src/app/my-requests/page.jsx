@@ -7,7 +7,6 @@ import React, { useEffect, useState } from 'react'
 export default function MyRequest() {
   const { data: session } = authClient.useSession()
   const user = session?.user
-  // console.log(user);
 
 
   const [requests, setRequests] = useState([])
@@ -18,7 +17,6 @@ export default function MyRequest() {
     fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}adoption-requests?adopterId=${user?.id}`)
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         setRequests(data)
       }
 
@@ -26,14 +24,12 @@ export default function MyRequest() {
 
   }, [user])
 
-  console.log(requests);
   const statusStyle = {
     Pending: 'bg-yellow-100 text-yellow-800',
     Approved: 'bg-green-100  text-green-800',
     Rejected: 'bg-red-100    text-red-800',
   }
 
-  console.log(requests);
 
 
 

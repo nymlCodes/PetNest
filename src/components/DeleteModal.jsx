@@ -35,7 +35,6 @@ export default function DeleteModal({ pet }) {
             toast.success('Pet deleted successfully')
             window.location.reload()
         } catch (error) {
-            console.error('Failed to delete pet:', error)
             toast.error('Failed to delete pet')
         } finally {
             setLoading(false)

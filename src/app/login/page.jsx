@@ -32,7 +32,6 @@ export default function Login() {
       callbackURL: '/',
     });
 
-    // console.log(data);
     if (error) {
       toast.error(error.message)
     } else {

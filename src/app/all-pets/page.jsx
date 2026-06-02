@@ -24,7 +24,6 @@ export default function AllPets() {
 
   const search = (e) => setName(e.target.value)
 
-  console.log(pets);
   
 
   return (

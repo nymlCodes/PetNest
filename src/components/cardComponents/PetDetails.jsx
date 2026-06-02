@@ -8,7 +8,6 @@ import { motion } from 'framer-motion';
 import { MdOutlinePets } from 'react-icons/md';
 
 export default function PetDetails({ pet }) {
-    console.log(pet, 'from pet details');
 
 
     const router = useRouter()
