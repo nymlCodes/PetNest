@@ -99,9 +99,11 @@ export default function MyRequest() {
                 </div>
 
                 <div className="flex gap-3">
-                  <button className="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 rounded-xl text-sm font-medium transition">
-                    View
-                  </button>
+                  <Link href={`/details/${req?.petId}`} className='flex-1  border block mx-auto'>
+                    <button className="bg-green-500 w-full hover:bg-green-600 text-white px-5 py-2 rounded-xl text-sm font-medium transition">
+                      View
+                    </button>
+                  </Link>
 
                   <button className="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 rounded-xl text-sm font-medium transition">
                     Cancel
