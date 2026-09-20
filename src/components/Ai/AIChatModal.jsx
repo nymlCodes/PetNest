@@ -142,7 +142,7 @@ const AIChatModal = ({ open, onClose, onSendMessage }) => {
                   <PawPrint size={18} color={BRAND.tanText} />
                 </div>
                 <p className="text-[13px]" style={{ color: BRAND.muted }}>
-                  Ask about adoption steps, a pet's temperament, or care basics.
+                  Comming Soon
                 </p>
               </div>
             ) : (
