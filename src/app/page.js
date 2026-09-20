@@ -1,3 +1,4 @@
+import AIChat from "@/components/Ai/AIChat";
 import Banner from "@/components/Banner";
 import PetCard from "@/components/cardComponents/PetCard";
 import FeaturedPets from "@/components/FeaturedPets";
@@ -20,6 +21,7 @@ export default function Home() {
 
       <WhyAdopt></WhyAdopt>
       <PetCare></PetCare>
+      <AIChat></AIChat>
     </>
   );
 }
