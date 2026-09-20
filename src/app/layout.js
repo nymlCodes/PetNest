@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "PetNest || Find your new family member",
+  title: "PetNest | Find your new family member",
   icons:{
     icon:'/logo.png'
   }
