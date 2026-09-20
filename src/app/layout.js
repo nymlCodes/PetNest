@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ToastContainer } from "react-toastify";
 import ScrollToTop from "@/components/ScrollToTop";
+import AIChat from "@/components/Ai/AIChat";
 // import logo from '../../public/'
 
 const geistSans = Geist({
@@ -35,6 +36,7 @@ export default function RootLayout({ children }) {
         {children}
         <ToastContainer />
         <Footer></Footer>
+        <AIChat></AIChat>
       </body>
     </html>
   );

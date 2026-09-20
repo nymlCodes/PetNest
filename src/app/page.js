@@ -21,7 +21,7 @@ export default function Home() {
 
       <WhyAdopt></WhyAdopt>
       <PetCare></PetCare>
-      <AIChat></AIChat>
+      {/* <AIChat></AIChat> */}
     </>
   );
 }
