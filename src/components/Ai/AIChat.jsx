@@ -13,12 +13,18 @@ const AIChat = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSendMessage = async (text) => {
-    // Replace with your real Groq/AI call.
-    const res = await fetch("/api/ai-chat", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}api/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: text }),
     });
+
+    if (!res.ok) {
+      const errBody = await res.json().catch(() => ({}));
+      console.error("Chat request failed:", res.status, errBody);
+      throw new Error(errBody.error || `Request failed with ${res.status}`);
+    }
+
     const data = await res.json();
     return data.reply;
   };

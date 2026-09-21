@@ -3,6 +3,8 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PawPrint, X, Send, Sparkles } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const BRAND = {
   bg: "#FBF4EA",
@@ -16,19 +18,93 @@ const BRAND = {
   muted: "#8A7A63",
 };
 
+// Compact Markdown renderer tuned for a narrow chat bubble — small,
+// tight spacing, brand colors, and a scrollable wrapper for the rare
+// table that slips through despite the system prompt discouraging them.
+const mdComponents = {
+  p: ({ children }) => <p className="mb-2 last:mb-0 leading-relaxed">{children}</p>,
+  strong: ({ children }) => (
+    <strong className="font-semibold" style={{ color: BRAND.brownDark }}>
+      {children}
+    </strong>
+  ),
+  em: ({ children }) => <em className="italic">{children}</em>,
+  ul: ({ children }) => <ul className="mb-2 ml-4 list-disc space-y-1 last:mb-0">{children}</ul>,
+  ol: ({ children }) => <ol className="mb-2 ml-4 list-decimal space-y-1 last:mb-0">{children}</ol>,
+  li: ({ children }) => <li className="leading-snug">{children}</li>,
+  a: ({ children, href }) => (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="underline underline-offset-2"
+      style={{ color: BRAND.brown }}
+    >
+      {children}
+    </a>
+  ),
+  code: ({ children }) => (
+    <code
+      className="rounded px-1 py-0.5 text-[12px]"
+      style={{ background: BRAND.bg, color: BRAND.brownDark }}
+    >
+      {children}
+    </code>
+  ),
+  table: ({ children }) => (
+    <div className="mb-2 -mx-1 overflow-x-auto">
+      <table className="min-w-full border-collapse text-[12px]">{children}</table>
+    </div>
+  ),
+  th: ({ children }) => (
+    <th
+      className="border px-2 py-1 text-left font-semibold"
+      style={{ borderColor: BRAND.border, background: BRAND.bg }}
+    >
+      {children}
+    </th>
+  ),
+  td: ({ children }) => (
+    <td className="border px-2 py-1 align-top" style={{ borderColor: BRAND.border }}>
+      {children}
+    </td>
+  ),
+};
+
+
+
+
+
 const TypingDots = () => (
-  <div className="flex items-center gap-1 px-1">
+  <div className="flex items-center gap-1.5 px-1 py-0.5">
+    {/* petnest ai is thinking */}
     {[0, 1, 2].map((i) => (
       <motion.span
         key={i}
         className="h-1.5 w-1.5 rounded-full"
         style={{ background: BRAND.tanText }}
-        animate={{ opacity: [0.3, 1, 0.3], y: [0, -3, 0] }}
-        transition={{ duration: 1, repeat: Infinity, delay: i * 0.15 }}
+        animate={{
+          y: [0, -4, 0],
+          opacity: [0.35, 1, 0.35],
+          scale: [0.9, 1.15, 0.9],
+        }}
+        transition={{
+          duration: 0.8,
+          repeat: Infinity,
+          delay: i * 0.15,
+          ease: "easeInOut",
+        }}
       />
+
     ))}
   </div>
 );
+
+
+
+
+
+
 
 // Controlled component: `open` and `onClose` come from the parent that
 // also owns AIButton, so there is a single source of truth for open state.
@@ -142,7 +218,7 @@ const AIChatModal = ({ open, onClose, onSendMessage }) => {
                   <PawPrint size={18} color={BRAND.tanText} />
                 </div>
                 <p className="text-[13px]" style={{ color: BRAND.muted }}>
-                  Comming Soon
+                  Ask about adoption steps, a pet's temperament, or care basics.
                 </p>
               </div>
             ) : (
@@ -150,9 +226,8 @@ const AIChatModal = ({ open, onClose, onSendMessage }) => {
                 {messages.map((m) => (
                   <div
                     key={m.id}
-                    className={`flex items-end gap-2 ${
-                      m.role === "user" ? "flex-row-reverse" : ""
-                    }`}
+                    className={`flex items-end gap-2 ${m.role === "user" ? "flex-row-reverse" : ""
+                      }`}
                   >
                     {m.role === "assistant" && (
                       <div
@@ -163,22 +238,29 @@ const AIChatModal = ({ open, onClose, onSendMessage }) => {
                       </div>
                     )}
                     <div
-                      className="max-w-[78%] rounded-2xl px-3.5 py-2.5 text-[13.5px] leading-relaxed"
+                      className={`rounded-2xl px-3.5 py-2.5 text-[13.5px] leading-relaxed ${m.role === "user" ? "max-w-[78%]" : "max-w-[92%]"
+                        }`}
                       style={
                         m.role === "user"
                           ? {
-                              background: BRAND.brown,
-                              color: "#FCF5EA",
-                              borderBottomRightRadius: 6,
-                            }
+                            background: BRAND.brown,
+                            color: "#FCF5EA",
+                            borderBottomRightRadius: 6,
+                          }
                           : {
-                              background: BRAND.tan,
-                              color: BRAND.text,
-                              borderBottomLeftRadius: 6,
-                            }
+                            background: BRAND.tan,
+                            color: BRAND.text,
+                            borderBottomLeftRadius: 6,
+                          }
                       }
                     >
-                      {m.text}
+                      {m.role === "assistant" ? (
+                        <ReactMarkdown remarkPlugins={[remarkGfm]} components={mdComponents}>
+                          {m.text}
+                        </ReactMarkdown>
+                      ) : (
+                        m.text
+                      )}
                     </div>
                   </div>
                 ))}
@@ -191,6 +273,7 @@ const AIChatModal = ({ open, onClose, onSendMessage }) => {
                     >
                       <PawPrint size={12} color={BRAND.tanText} />
                     </div>
+
                     <div
                       className="rounded-2xl px-3.5 py-3"
                       style={{ background: BRAND.tan, borderBottomLeftRadius: 6 }}
