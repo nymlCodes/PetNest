@@ -19,13 +19,15 @@ export const auth = betterAuth({
 
     baseURL: [
     "http://localhost:3000",
-    "https://assignment-9-sooty.vercel.app",
+    // "https://assignment-9-sooty.vercel.app",
+    "https://neyamuls-petnest.vercel.app"
   ],
 
     // trustedOrigins: ["http://localhost:3000"],
     trustedOrigins: [
     "http://localhost:3000",
-    "https://assignment-9-sooty.vercel.app",
+    // "https://assignment-9-sooty.vercel.app",
+    "https://neyamuls-petnest.vercel.app"
   ],
 
     socialProviders: {
