@@ -15,20 +15,15 @@ const db = client.db("pet-nest");
 export const auth = betterAuth({
     database: mongodbAdapter(db),
 
-    secret: process.env.BETTER_AUTH_SECRET,
+    baseURL: process.env.BETTER_AUTH_URL,
 
-    baseURL: [
-    "http://localhost:3000",
-    // "https://assignment-9-sooty.vercel.app",
-    "https://neyamuls-petnest.vercel.app"
-  ],
-
+   
     // trustedOrigins: ["http://localhost:3000"],
     trustedOrigins: [
-    "http://localhost:3000",
-    // "https://assignment-9-sooty.vercel.app",
-    "https://neyamuls-petnest.vercel.app"
-  ],
+        "http://localhost:3000",
+        // "https://assignment-9-sooty.vercel.app",
+        "https://neyamuls-petnest.vercel.app"
+    ],
 
     socialProviders: {
         google: {
